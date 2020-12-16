@@ -1,13 +1,25 @@
-let heading = document.querySelector('h1');
-let image = document.getElementById('image-changer');
+let button = document.querySelector('button')
+let heading = document.querySelector('h1')
 
-heading.textContent = 'Toggle images below'
+function set_user_name() {
+    let name = null;
+    while (!name) {
+        name = prompt('what is your username ?')
 
-heading.onclick = function () {
-    let source = image.getAttribute('src');
-    if (source === './images/one.png') {
-        image.setAttribute('src', './images/two.png');
+        if (!name) {
+            alert("Username can't be empty !!")
+        } else break;
+    }
+    localStorage.setItem('name', name)
+    heading.textContent = `${name} is signed in ...`
+}
+
+button.onclick = function () {
+    if (!localStorage.getItem('name')) {
+        set_user_name()
     } else {
-        image.setAttribute('src', './images/one.png');
+        let name = localStorage.getItem('name');
+        heading.textContent = `${name} welcome back !!`
+
     }
 }
